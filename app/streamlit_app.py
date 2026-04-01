@@ -2,7 +2,7 @@ import streamlit as st
 from pymongo import MongoClient
 import pandas as pd
 
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient("mongodb+srv://sonu74swami_db_user:7X7fqpda64VeptLT@cluster0.dphf6kj.mongodb.net/")
 db = client["b2b_db"]
 collection = db["companies"]
 
