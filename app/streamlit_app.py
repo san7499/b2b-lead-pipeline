@@ -6,15 +6,25 @@ client = MongoClient("mongodb://localhost:27017/")
 db = client["b2b_db"]
 collection = db["companies"]
 
-st.title("🚀 B2B Lead Dashboard")
+st.title("🚀 B2B Lead Intelligence Dashboard")
 
-data = list(collection.find({}, {"_id": 0}))
+# Fetch data
+try:
+    data = list(collection.find({}, {"_id": 0}))
+except Exception as e:
+    st.error(f"Database error: {e}")
+    data = []
+
 df = pd.DataFrame(data)
 
-search = st.text_input("Search Company")
+st.write("📊 Total Records:", len(df))
 
-if search:
-    df = df[df["name"].str.contains(search, case=False)]
+if df.empty:
+    st.warning("⚠️ No data found. Run pipeline first.")
+else:
+    search = st.text_input("🔍 Search")
 
-st.write(df)
-st.write("Total:", len(df))
+    if search and "name" in df.columns:
+        df = df[df["name"].astype(str).str.contains(search, case=False, na=False)]
+
+    st.dataframe(df)

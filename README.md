@@ -2,54 +2,43 @@
 
 ## 📌 Problem Statement
 
-Businesses such as marketing agencies, SaaS companies, and consulting firms require **high-quality leads of potential clients**. However, relevant company data is scattered across multiple platforms and is often unstructured, incomplete, and inconsistent.
+Businesses such as marketing agencies, SaaS companies, and consulting firms require **structured data** to identify potential clients and make data-driven decisions. However, most available data online is:
 
-Manual data collection is time-consuming and not scalable, while existing paid tools are expensive and inaccessible for small businesses.
+* Unstructured
+* Inconsistent
+* Scattered across multiple sources
+
+Manual data collection is time-consuming and inefficient.
 
 ---
 
 ## 🎯 Solution
 
-This project builds an **automated data engineering pipeline** that:
+This project implements an **end-to-end data engineering pipeline** that:
 
-* Scrapes startup/company data from Y Combinator
-* Cleans and standardizes the raw data
-* Stores structured data in a MongoDB database
-* Automatically updates data at regular intervals
-* Provides a dynamic interface using Streamlit for business users
+* Scrapes publicly available data from a website
+* Cleans and standardizes the data
+* Stores it in a MongoDB database
+* Displays it through an interactive Streamlit dashboard
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-Scraper → Raw Data → Cleaning → MongoDB → Streamlit Dashboard
+Scraper → Raw Data → Data Cleaning → MongoDB → Streamlit Dashboard
 ```
 
 ---
 
 ## ⚙️ Tech Stack
 
-* **Python** – Core programming language
-* **BeautifulSoup / Requests** – Web scraping
-* **Pandas** – Data cleaning and transformation
-* **MongoDB** – Database for storing structured data
-* **Streamlit** – Interactive dashboard
-* **APScheduler** – Automation of pipeline
-
----
-
-## 🔍 Features
-
-* ✅ Automated web scraping with error handling
-* ✅ Data cleaning and standardization
-* ✅ MongoDB integration for storage
-* ✅ Scheduled pipeline execution (every 12 hours)
-* ✅ Interactive dashboard with:
-
-  * Search functionality
-  * Data visualization
-  * Real-time data display
+* **Python** – Core language
+* **Requests + BeautifulSoup** – Web scraping
+* **Pandas** – Data handling
+* **MongoDB** – Database
+* **Streamlit** – Interactive UI
+* **APScheduler** – Automation
 
 ---
 
@@ -79,17 +68,28 @@ b2b-lead-pipeline/
 │
 ├── requirements.txt
 ├── README.md
-└── .env
 ```
 
 ---
 
-## 🚀 How to Run Locally
+## 🔍 Features
+
+* ✅ Automated data scraping
+* ✅ Data cleaning and preprocessing
+* ✅ MongoDB integration
+* ✅ Interactive Streamlit dashboard
+* ✅ Search functionality
+* ✅ Modular pipeline design
+* ✅ Error handling and logging
+
+---
+
+## 🚀 How to Run the Project
 
 ### 1️⃣ Clone the repository
 
 ```
-git clone https://github.com/your-username/b2b-lead-pipeline.git
+git clone https://github.com/san7499/b2b-lead-pipeline.git
 cd b2b-lead-pipeline
 ```
 
@@ -103,9 +103,7 @@ pip install -r requirements.txt
 
 ---
 
-### 3️⃣ Start MongoDB
-
-Make sure MongoDB is running locally:
+### 3️⃣ Ensure MongoDB is running
 
 ```
 mongodb://localhost:27017/
@@ -113,7 +111,7 @@ mongodb://localhost:27017/
 
 ---
 
-### 4️⃣ Run the pipeline manually
+### 4️⃣ Run the pipeline
 
 ```
 python scraper/yc_scraper.py
@@ -123,7 +121,7 @@ python database/db.py
 
 ---
 
-### 5️⃣ Run Streamlit dashboard
+### 5️⃣ Run the dashboard
 
 ```
 streamlit run app/streamlit_app.py
@@ -131,17 +129,9 @@ streamlit run app/streamlit_app.py
 
 ---
 
-### 6️⃣ Run scheduler (optional)
+## 🔐 Environment Variables (Optional)
 
-```
-python scheduler/scheduler.py
-```
-
----
-
-## 🔐 Environment Variables
-
-Create a `.env` file:
+You can use a `.env` file:
 
 ```
 MONGO_URI=mongodb://localhost:27017/
@@ -152,11 +142,9 @@ DB_NAME=b2b_db
 
 ## 📊 Output
 
-The system provides:
-
-* Clean, structured company data
-* Searchable dashboard
-* Automatically updated dataset
+* Cleaned structured dataset stored in MongoDB
+* Interactive dashboard to explore data
+* Search-based filtering
 
 ---
 
@@ -164,34 +152,42 @@ The system provides:
 
 This solution enables businesses to:
 
-* Discover potential clients (lead generation)
-* Filter companies by relevance
-* Access clean and structured data
-* Reduce dependency on expensive third-party tools
+* Discover structured datasets
+* Quickly search and analyze information
+* Reduce manual data collection effort
+* Build scalable data pipelines
 
 ---
 
-## 🤖 Future Enhancements (Optional)
+## ⚠️ Note
 
-* Lead scoring using machine learning
-* Industry classification using NLP
-* Email/contact extraction
-* API deployment for external access
+Initially, the project attempted to scrape dynamic websites, which led to unreliable data extraction. To ensure stability and consistency, a structured and static dataset was used for building a reliable pipeline.
 
 ---
 
 ## 🧠 Key Learnings
 
-* Building end-to-end data pipelines
+* Building end-to-end ETL pipelines
 * Handling unstructured web data
-* Automating workflows
-* Designing systems for real-world business use cases
+* Data cleaning and validation
+* Database integration
+* Creating interactive dashboards
 
 ---
 
-## 📌 Author
+## 🤖 Future Enhancements
+
+* Add data visualization charts
+* Integrate machine learning for insights
+* Deploy API endpoints
+* Use cloud database (MongoDB Atlas)
+* Improve scraping with dynamic handling
+
+---
+
+## 👨‍💻 Author
 
 **Sanket Khapake**
-Aspiring Data Engineer | MERN Stack Developer | Data Science Enthusiast
+Aspiring Data Engineer | Full Stack Developer | Data Science Enthusiast
 
 ---

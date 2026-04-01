@@ -1,33 +1,46 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import os
 
-def scrape_yc():
-    base_url = "https://www.ycombinator.com/companies"
-    companies = []
+
+def scrape_books():
+    url = "https://books.toscrape.com/catalogue/page-1.html"
+    base_url = "https://books.toscrape.com/catalogue/"
+
+    books = []
 
     try:
-        response = requests.get(base_url)
-        soup = BeautifulSoup(response.text, "html.parser")
+        for page in range(1, 6):  # scrape 5 pages
+            page_url = f"https://books.toscrape.com/catalogue/page-{page}.html"
+            response = requests.get(page_url)
+            soup = BeautifulSoup(response.text, "html.parser")
 
-        cards = soup.find_all("a")
+            items = soup.find_all("article", class_="product_pod")
 
-        for card in cards:
-            try:
-                name = card.text.strip()
-                if name:
-                    companies.append({
-                        "name": name,
-                        "description": "N/A"
-                    })
-            except Exception:
-                continue
+            for item in items:
+                name = item.h3.a["title"]
+                price = item.find("p", class_="price_color").text
 
-        # Save raw data
-        with open("data/raw.json", "w") as f:
-            json.dump(companies, f, indent=4)
+                books.append({
+                    "name": name,
+                    "description": price
+                })
+
+        # Save data
+        os.makedirs("data", exist_ok=True)
+
+        with open("data/raw.json", "w", encoding="utf-8") as f:
+            json.dump(books, f, indent=4)
+
+        print(f"✅ Scraped {len(books)} books successfully")
+
+        return books
 
     except Exception as e:
-        print("Error:", e)
+        print("❌ Error:", e)
+        return []
 
-    return companies
+
+if __name__ == "__main__":
+    scrape_books()
